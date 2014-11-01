@@ -53,9 +53,9 @@ function insertCalendar (dt, price) {
 }
 function getByDate (dt, cb) {
 	var date = moment(dt.date, dateFormats).unix();
-	var _id dt.origin + dt.destination + date;
+	var _id = dt.origin + dt.destination + date;
 	db.get('pluto', 'calendar', _id, function (res) {
 		cb(res);
-	})
+	});
 }
 module.exports = priceInserter;
