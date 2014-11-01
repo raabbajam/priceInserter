@@ -41,7 +41,10 @@ function insertCalendar (dt, price) {
 	data.id = data.origin + data.destination + Math.round(data.date/1000);
 
 	getByDate(data.id, function (res) {
-		var oldPrice = res._source.price || 0;
+		var oldPrice = 0
+		if(res.found)
+			oldPrice = res._source && res._source.price || 0;
+
 		if ( oldPrice !== 0 && price > oldPrice )
 			return false;
 		data.price = price;
