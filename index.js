@@ -47,12 +47,15 @@ function insertCalendar (dt, price) {
 			return false;
 		body.price = price;
 		db.index('pluto', 'calendar', data, function (err, data) {
-			// do nothing
+			console.log('insert2');
 		});
 	});		
 }
-function getByDate (dt) {
+function getByDate (dt, cb) {
 	var date = moment(dt.date, dateFormats).unix();
-	return dt.origin + dt.destination + date;
+	var _id dt.origin + dt.destination + date;
+	db.get('pluto', 'calendar', _id, function (res) {
+		cb(res);
+	})
 }
 module.exports = priceInserter;
