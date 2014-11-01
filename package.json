@@ -1,0 +1,17 @@
+{
+  "name": "priceInserter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Muhammad Abdul Jabbaar <muhammadabduljabbaar@gmail.com> (http://mabdulj.jasaprogrammer.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "elasticsearchclient": "^0.5.3"
+  },
+  "devDependencies": {
+    "chai": "^1.9.2"
+  }
+}
