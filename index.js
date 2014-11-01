@@ -7,8 +7,8 @@ var dateFormats = ['DD+MM+YYYY', 'DD+MMM+YYYY', 'DD MM YYYY', 'DD MMM YYYY'];
 var moment = require('moment');
 var airlines = {"airasia": 1, "citilink": 2, "garuda": 3, "lion": 4, "sriwijaya": 5, "xpress": 6};
 function priceInserter (airline) {
-	var _kode = airlines[airline] || 0;
-	var _airline = airline;
+	_kode = airlines[airline] || 0;
+	_airline = airline;
 	return function (dt, price) {
 		insertCache(dt, price);
 		insertCalendar(dt, price);
@@ -26,7 +26,6 @@ function insertCache (dt, price) {
 	};
 	data.id = data.origin + data.destination + data.airline + data.flight + data.class;
 	db.index('pluto', 'price', data, function (err, data) {
-		// do nothing
 	});
 }
 function insertCalendar (dt, price) {
@@ -36,26 +35,23 @@ function insertCalendar (dt, price) {
 		date: _date,
 		origin: dt.ori,
 		destination: dt.dst,
-		price: _price
+		price: _price,
 		airline: _airline,
 	};
 	data.id = data.origin + data.destination + Math.round(data.date/1000);
 
-	getByDate(data, function (res) {
-		var oldPrice = res.data;
+	getByDate(data.id, function (res) {
+		var oldPrice = res._source.price || 0;
 		if ( oldPrice !== 0 && price > oldPrice )
 			return false;
-		body.price = price;
+		data.price = price;
 		db.index('pluto', 'calendar', data, function (err, data) {
-			console.log('insert2');
 		});
 	});		
 }
-function getByDate (dt, cb) {
-	var date = moment(dt.date, dateFormats).unix();
-	var _id = dt.origin + dt.destination + date;
-	db.get('pluto', 'calendar', _id, function (res) {
-		cb(res);
+function getByDate (_id, cb) {
+	db.get('pluto', 'calendar', _id, function (err, res) {
+		cb(JSON.parse(res));
 	});
 }
 module.exports = priceInserter;
