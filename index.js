@@ -45,10 +45,10 @@ function insertCalendar (dt, price) {
 		if(res.found)
 			oldPrice = res._source && res._source.price || 0;
 
-		if ( oldPrice !== 0 && price > oldPrice )
+		if ( oldPrice !== 0 && _price > oldPrice )
 			return false;
-		_price = parseInt(price, 10) + _kode;
-		data.price = price;
+
+		data.price = _price;
 		db.index('pluto', 'calendar', data, function (err, data) {
 		});
 	});		
