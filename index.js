@@ -6,6 +6,11 @@ var db = new ElasticSearchClient({
 var dateFormats = ['DD+MM+YYYY', 'DD+MMM+YYYY', 'DD MM YYYY', 'DD MMM YYYY'];
 var moment = require('moment');
 var airlines = {"airasia": 1, "citilink": 2, "garuda": 3, "lion": 4, "sriwijaya": 5, "xpress": 6};
+var _debug = 1;
+var debug = function () {
+	if (_debug)
+		console.log(arguments)
+}
 function priceInserter (airline) {
 	_kode = airlines[airline] || 0;
 	_airline = airline;
@@ -25,7 +30,8 @@ function insertCache (dt, price) {
 		price: _price
 	};
 	data.id = data.origin + data.destination + data.airline + data.flight + data.class;
-	db.index('pluto', 'price', data, function (err, data) {
+	db.index('pluto', 'price', data, function (err, res) {
+		debug('insert cache', data, res)
 	});
 }
 function insertCalendar (dt, price) {
@@ -49,7 +55,8 @@ function insertCalendar (dt, price) {
 			return false;
 
 		data.price = _price;
-		db.index('pluto', 'calendar', data, function (err, data) {
+		db.index('pluto', 'calendar', data, function (err, res) {
+			debug('insert calendar', data, res)
 		});
 	});		
 }
