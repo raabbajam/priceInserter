@@ -9,14 +9,15 @@ var airlines = {"airasia": 1, "citilink": 2, "garuda": 3, "lion": 4, "sriwijaya"
 var _debug = 1;
 var debug = function () {
 	if (_debug)
-		console.log(arguments)
+		console.log.apply(null, arguments)
 }
 function priceInserter (airline) {
 	_kode = airlines[airline] || 0;
 	_airline = airline;
 	return function (dt, price) {
 		insertCache(dt, price);
-		insertCalendar(dt, price);
+		if(!!dt.rute && dt.rute.toLowerCase() === 'ow')
+			insertCalendar(dt, price);
 	}
 }
 function insertCache (dt, price) {
@@ -58,7 +59,7 @@ function insertCalendar (dt, price) {
 		db.index('pluto', 'calendar', data, function (err, res) {
 			debug('insert calendar', data, res)
 		});
-	});		
+	});
 }
 function getByDate (_id, cb) {
 	db.get('pluto', 'calendar', _id, function (err, res) {
