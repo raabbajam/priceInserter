@@ -7,28 +7,19 @@ var debug       = require('debug')('raabbajam:priceInserter:base');
 var moment      = require('moment');
 var airlines    = {"airasia": 1, "citilink": 2, "garuda": 3, "lion": 4, "sriwijaya": 5, "xpress": 6};
 var dateFormats = ['DD+MM+YYYY', 'DD+MMM+YYYY', 'DD MM YYYY', 'DD MMM YYYY'];
-<<<<<<< HEAD
-=======
 var moment      = require('moment');
 var airlines    = {"airasia": 1, "citilink": 2, "garuda": 3, "lion": 4, "sriwijaya": 5, "xpress": 6};
 var debug       = require('debug')('raabbajam:priceInserter:base');
->>>>>>> 6ebcbbc585c27c67a4c7e9e750ada7f8a7ca30b3
 function priceInserter (airline) {
 	_kode    = airlines[airline] || 0;
 	_airline = airline;
 	return function (dt, price) {
-<<<<<<< HEAD
 		debug('running priceInserter')
 		if(!!dt.rute && (dt.rute.toLowerCase() === 'rt' || dt.rute.toLowerCase() !== 'ow')){
 			debug('Return route. Not cached!');
 			return true;
 		}
 		debug('start inserting')
-=======
-		if(!!dt.rute && dt.rute.toLowerCase() === 'rt'){
-			console.log('Return route. Not cached!');
-		}
->>>>>>> 6ebcbbc585c27c67a4c7e9e750ada7f8a7ca30b3
 		insertCache(dt, price);
 		insertCalendar(dt, price);
 	}
