@@ -56,6 +56,7 @@ function insertCalendar (dt, price) {
 		destination: dt.dst,
 	};
 	data.id = data.origin + data.destination + Math.round(data.date/1000);
+    data.id = data.id.toLowerCase();
 
 	getByDate(data.id, function (res) {
 		var oldPrice = 0
