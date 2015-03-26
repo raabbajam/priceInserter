@@ -5,10 +5,9 @@ var db                  = new ElasticSearchClient({
 });
 var debug       = require('debug')('raabbajam:priceInserter:base');
 var moment      = require('moment');
-var airlines    = {"airasia": 1, "citilink": 2, "garuda": 3, "lion": 4, "sriwijaya": 5, "xpress": 6};
 var dateFormats = ['DD+MM+YYYY', 'DD+MMM+YYYY', 'DD MM YYYY', 'DD MMM YYYY'];
 var moment      = require('moment');
-var airlines    = {"airasia": 1, "citilink": 2, "garuda": 3, "lion": 4, "sriwijaya": 5, "xpress": 6};
+var airlines    = {"airasia": 1, "citilink": 2, "garuda": 3, "lion": 4, "sriwijaya": 5, "xpress": 6, "kalstar": 7};
 var debug       = require('debug')('raabbajam:priceInserter:base');
 function priceInserter (airline) {
 	_kode    = airlines[airline] || 0;
