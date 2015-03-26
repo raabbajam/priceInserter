@@ -27,6 +27,7 @@ function priceInserter (airline) {
 function insertCache (dt, price) {
 	debug('running insertCache')
 	var _price = parseInt(price, 10) + _kode;
+	var _price = price;
 	var data = {
 		price      : _price,
 		class      : dt.class || '',
@@ -47,6 +48,7 @@ function insertCache (dt, price) {
 function insertCalendar (dt, price) {
 	debug('running insertCalendar')
 	var _price = parseInt(price, 10) + _kode;
+	var _price = price;
 	var _date  = moment(dt.dep_date, dateFormats).unix() * 1000;
 	var data   = {
 		date       : _date,
